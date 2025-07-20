@@ -1,11 +1,22 @@
-age = int(input("Enter your age: "))
+num1 = float(input("Enter the first number: "))
+num2 = float(input("Enter the second number: "))
+operation = input("Choose the operation (+, -, *, /): ")
 
-match age:
-    case 0:
-        print("You're a baby!")
-    case 1 | 2:
-        print("You're a toddler.")
-    case 3 | 4 | 5:
-        print("You're in preschool.")
+match operation:
+    case '+':
+        result = num1 + num2
+    case '-':
+        result = num1 - num2
+    case '*':
+        result = num1 * num2
+    case '/':
+        if num2 == 0:
+            print("Cannot divide by zero.")
+            exit()
+        else:
+            result = num1 / num2
     case _:
-        print("You're older than that!")
+        print("Invalid operation.")
+        exit()
+
+print(f"The result is {result}.")
