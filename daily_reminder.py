@@ -1,26 +1,35 @@
-from datetime import date
+from datetime import datetime
 
-# Print today's date
-print(f"\n📅 Today is {date.today().strftime('%A, %d %B %Y')}")
+# Step 1: Get today's date
+today = datetime.now().strftime("%A, %d %B %Y")
+print(f"📅 Today is {today}")
 
-# Prompt for inputs
-task = input("📝 Enter your task: ")
-time_bound = input("⏰ Is this task time-bound? (yes/no): ").lower()
-priority = input("🚦 Enter the priority (High/Medium/Low): ").capitalize()
+# Step 2: Ask for task
+task = input("📝 Enter your task: ").strip()
 
-# Time-sensitive reminder
+# Step 3: Ask if time-bound
+time_bound = input("⏰ Is this task time-bound? (yes/no): ").strip().lower()
+
+# Step 4: Ask for priority
+priority = input("🚦 Enter the priority (High/Medium/Low): ").strip().lower()
+
+# Step 5: Build reminder
+reminder = f"🔔 Reminder: '{task}'"
+
 if time_bound == "yes":
-    print(f"\n🔔 Reminder: '{task}' — This task is time-sensitive! Please handle it ASAP.")
+    reminder += " — This task is time-sensitive! Please handle it ASAP."
 else:
-    print(f"\n📝 Reminder: '{task}' — No immediate deadline, but stay on track.")
+    reminder += " — This task can be scheduled flexibly."
 
-# Match-case for priority
+print("\n" + reminder)
+
+# Step 6: Priority feedback using match-case (Python 3.10+)
 match priority:
-    case "High":
+    case "high":
         print("⚠️ Priority: High — Give this task immediate attention.")
-    case "Medium":
-        print("🔶 Priority: Medium — Plan to work on this soon.")
-    case "Low":
-        print("✅ Priority: Low — Can be handled later.")
+    case "medium":
+        print("✅ Priority: Medium — Plan this task soon.")
+    case "low":
+        print("🕓 Priority: Low — Can be done at your convenience.")
     case _:
-        print("❓ Unknown priority level.")
+        print("❓ Priority not recognized.")
