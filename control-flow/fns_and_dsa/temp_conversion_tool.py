@@ -1,37 +1,53 @@
-
 # Global conversion factors
-CELSIUS_TO_FAHRENHEIT_FACTOR = 9/5
-FAHRENHEIT_TO_CELSIUS_FACTOR = 5/9
-FREEZING_POINT_C_IN_F = 32
+FAHRENHEIT_TO_CELSIUS = lambda f: (f - 32) * 5/9
+CELSIUS_TO_FAHRENHEIT = lambda c: (c * 9/5) + 32
+CELSIUS_TO_KELVIN = lambda c: c + 273.15
+KELVIN_TO_CELSIUS = lambda k: k - 273.15
 
-# Conversion functions
-def celsius_to_fahrenheit(celsius):
-    return (celsius * CELSIUS_TO_FAHRENHEIT_FACTOR) + FREEZING_POINT_C_IN_F
+# Conversion function
+def convert_temperature(value, from_unit, to_unit):
+    try:
+        value = float(value)
+    except ValueError:
+        raise ValueError("Invalid numeric input.")
 
-def fahrenheit_to_celsius(fahrenheit):
-    return (fahrenheit - FREEZING_POINT_C_IN_F) * FAHRENHEIT_TO_CELSIUS_FACTOR
+    from_unit = from_unit.lower()
+    to_unit = to_unit.lower()
+
+    if from_unit == to_unit:
+        return value
+
+    if from_unit == "celsius":
+        if to_unit == "fahrenheit":
+            return CELSIUS_TO_FAHRENHEIT(value)
+        elif to_unit == "kelvin":
+            return CELSIUS_TO_KELVIN(value)
+    elif from_unit == "fahrenheit":
+        if to_unit == "celsius":
+            return FAHRENHEIT_TO_CELSIUS(value)
+        elif to_unit == "kelvin":
+            celsius = FAHRENHEIT_TO_CELSIUS(value)
+            return CELSIUS_TO_KELVIN(celsius)
+    elif from_unit == "kelvin":
+        if to_unit == "celsius":
+            return KELVIN_TO_CELSIUS(value)
+        elif to_unit == "fahrenheit":
+            celsius = KELVIN_TO_CELSIUS(value)
+            return CELSIUS_TO_FAHRENHEIT(celsius)
+
+    raise ValueError("Invalid conversion units.")
 
 # User interaction
 def main():
-    print("Welcome to the Temperature Conversion Tool!")
-    print("1. Celsius to Fahrenheit")
-    print("2. Fahrenheit to Celsius")
-
-    choice = input("Enter your choice (1 or 2): ")
-
+    print("Temperature Conversion Tool")
     try:
-        if choice == "1":
-            celsius = float(input("Enter temperature in Celsius: "))
-            fahrenheit = celsius_to_fahrenheit(celsius)
-            print(f"{celsius}°C is equal to {fahrenheit:.2f}°F")
-        elif choice == "2":
-            fahrenheit = float(input("Enter temperature in Fahrenheit: "))
-            celsius = fahrenheit_to_celsius(fahrenheit)
-            print(f"{fahrenheit}°F is equal to {celsius:.2f}°C")
-        else:
-            print("Invalid choice. Please enter 1 or 2.")
-    except ValueError:
-        print("Invalid input. Please enter a numeric value.")
+        temp_value = input("Enter the temperature value to convert: ")
+        from_unit = input("Convert from (Celsius, Fahrenheit, Kelvin): ")
+        to_unit = input("Convert to (Celsius, Fahrenheit, Kelvin): ")
+        result = convert_temperature(temp_value, from_unit, to_unit)
+        print(f"{temp_value} {from_unit.capitalize()} is {round(result, 2)} {to_unit.capitalize()}")
+    except ValueError as ve:
+        print(f"Error: {ve}")
 
 if __name__ == "__main__":
     main()
