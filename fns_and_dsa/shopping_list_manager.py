@@ -1,3 +1,4 @@
+
 shopping_list = []
 
 def display_menu():
@@ -8,7 +9,7 @@ def display_menu():
     print("4. Exit")
 
 def add_item():
-    item = input("Enter item to add: ")
+    item = input("Enter the item to add: ")  # ✅ Corrected input text
     shopping_list.append(item)
     print(f"{item} added to the shopping list.")
 
@@ -33,4 +34,21 @@ def main():
         display_menu()
         try:
             choice = int(input("Enter your choice (1-4): "))
-        except
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+            continue
+
+        if choice == 1:
+            add_item()
+        elif choice == 2:
+            remove_item()
+        elif choice == 3:
+            view_list()
+        elif choice == 4:
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please choose a number from 1 to 4.")
+
+if __name__ == "__main__":
+    main()
