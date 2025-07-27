@@ -1,35 +1,27 @@
-from datetime import datetime
+# daily_reminder.py
 
-# Step 1: Get today's date
-today = datetime.now().strftime("%A, %d %B %Y")
-print(f"📅 Today is {today}")
+# Prompt the user for inputs
+task = input("Enter your task: ")
+priority = input("Priority (high/medium/low): ").lower()
+time_bound = input("Is it time-bound? (yes/no): ").lower()
 
-# Step 2: Ask for task
-task = input("📝 Enter your task: ").strip()
-
-# Step 3: Ask if time-bound
-time_bound = input("⏰ Is this task time-bound? (yes/no): ").strip().lower()
-
-# Step 4: Ask for priority
-priority = input("🚦 Enter the priority (High/Medium/Low): ").strip().lower()
-
-# Step 5: Build reminder
-reminder = f"🔔 Reminder: '{task}'"
-
-if time_bound == "yes":
-    reminder += " — This task is time-sensitive! Please handle it ASAP."
-else:
-    reminder += " — This task can be scheduled flexibly."
-
-print("\n" + reminder)
-
-# Step 6: Priority feedback using match-case (Python 3.10+)
+# Match case to handle priority
 match priority:
     case "high":
-        print("⚠️ Priority: High — Give this task immediate attention.")
+        reminder = f"'{task}' is a high priority task"
     case "medium":
-        print("✅ Priority: Medium — Plan this task soon.")
+        reminder = f"'{task}' is a medium priority task"
     case "low":
-        print("🕓 Priority: Low — Can be done at your convenience.")
+        reminder = f"'{task}' is a low priority task"
     case _:
-        print("❓ Priority not recognized.")
+        reminder = f"'{task}' has an unknown priority level"
+
+# Add time sensitivity detail
+if time_bound == "yes":
+    reminder += " that requires immediate attention today!"
+else:
+    reminder += ". Consider completing it when you have free time."
+
+# Print final customized reminder
+print("Reminder:", reminder)
+
