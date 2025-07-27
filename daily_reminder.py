@@ -1,27 +1,27 @@
-# daily_reminder.py
+# Daily Reminder Program
 
-# Step 1: Prompt the user for task details
-task = input("Enter the task: ")
-time_bound = input("Is the task time-bound? (yes/no): ").strip().lower()
-priority = input("Enter the priority (low, medium, high): ").strip().lower()
+# Ask the user for details
+task = input("What task do you need to do? ")
+time_bound = input("Is this task time-bound? (yes/no): ").lower()
+priority = input("What is the priority level? (high/medium/low): ").lower()
 
-# Step 2: Build the base reminder
-reminder = f"Reminder: {task} - Priority: {priority.title()}"
-
-# Step 3: Modify reminder if time-bound
-if time_bound == "yes":
-    reminder += " [Requires immediate attention due to time sensitivity]"
-
-# Step 4: Match-case to customize response
-match priority:
-    case "low":
-        reminder += "\nTip: You can schedule this for later in the day."
-    case "medium":
-        reminder += "\nTip: Try to complete this by the end of the day."
-    case "high":
-        reminder += "\nTip: Start working on this task immediately!"
+# Match-case structure for task response
+match task.lower():
+    case "study":
+        print("📘 Remember to find a quiet place to study.")
+    case "exercise":
+        print("🏃‍♀️ Time to move! Don’t forget to warm up.")
+    case "meeting":
+        print("📅 Make sure your calendar is updated.")
     case _:
-        reminder += "\nWarning: Unknown priority level."
+        print("📝 Got it! Let’s stay on track.")
 
-# Step 5: Print the customized reminder
-print("\n" + reminder)
+# Modify reminder if the task is time-bound
+if time_bound == "yes":
+    print("⏰ This task is time-sensitive! Plan your time wisely.")
+
+# Provide a customized reminder
+print(f"Reminder: You need to '{task}' with {priority.upper()} priority.")
+if priority == "high" and time_bound == "yes":
+    print("⚠️ Act immediately. This is both important and urgent!")
+
