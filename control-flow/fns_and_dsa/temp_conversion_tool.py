@@ -1,34 +1,38 @@
+
+
 # Global conversion factors
-FAHRENHEIT_TO_CELSIUS_FACTOR = 5 / 9
 CELSIUS_TO_FAHRENHEIT_FACTOR = 9 / 5
+FAHRENHEIT_TO_CELSIUS_FACTOR = 5 / 9
+FREEZING_POINT_C_IN_F = 32
 
 # Conversion functions
-def convert_fahrenheit_to_celsius(fahrenheit):
-    return (fahrenheit - 32) * FAHRENHEIT_TO_CELSIUS_FACTOR
+def celsius_to_fahrenheit(celsius):
+    return (celsius * CELSIUS_TO_FAHRENHEIT_FACTOR) + FREEZING_POINT_C_IN_F
 
-def convert_celsius_to_fahrenheit(celsius):
-    return (celsius * CELSIUS_TO_FAHRENHEIT_FACTOR) + 32
+def fahrenheit_to_celsius(fahrenheit):
+    return (fahrenheit - FREEZING_POINT_C_IN_F) * FAHRENHEIT_TO_CELSIUS_FACTOR
 
-# Main program
-if __name__ == "__main__":
-    print("Temperature Conversion Tool")
-    print("Choose conversion:")
-    print("1. Fahrenheit to Celsius")
-    print("2. Celsius to Fahrenheit")
+# User interaction
+def main():
+    print("Welcome to the Temperature Conversion Tool!")
+    print("1. Celsius to Fahrenheit")
+    print("2. Fahrenheit to Celsius")
 
-    choice = input("Enter 1 or 2: ")
+    choice = input("Enter your choice (1 or 2): ")
 
     try:
         if choice == "1":
-            fahrenheit = float(input("Enter temperature in Fahrenheit: "))
-            celsius = convert_fahrenheit_to_celsius(fahrenheit)
-            print(f"{fahrenheit}°F is {celsius:.2f}°C")
-        elif choice == "2":
             celsius = float(input("Enter temperature in Celsius: "))
-            fahrenheit = convert_celsius_to_fahrenheit(celsius)
-            print(f"{celsius}°C is {fahrenheit:.2f}°F")
+            fahrenheit = celsius_to_fahrenheit(celsius)
+            print(f"{celsius}°C is equal to {fahrenheit:.2f}°F")
+        elif choice == "2":
+            fahrenheit = float(input("Enter temperature in Fahrenheit: "))
+            celsius = fahrenheit_to_celsius(fahrenheit)
+            print(f"{fahrenheit}°F is equal to {celsius:.2f}°C")
         else:
             print("Invalid choice. Please enter 1 or 2.")
     except ValueError:
-        print("Invalid input. Please enter a number.")
+        print("Invalid input. Please enter a numeric value.")
 
+if __name__ == "__main__":
+    main()
