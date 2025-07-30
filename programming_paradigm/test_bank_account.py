@@ -1,19 +1,17 @@
-from bank_account import BankAccount
+class BankAccount:
+    def __init__(self, initial_balance):
+        self.balance = initial_balance
 
-# Create a new account
-my_account = BankAccount("Christabel", 1000)
+    def deposit(self, amount):
+        self.balance += amount
+        print(f"Deposited: ${amount:.1f}")
 
-# Display balance
-my_account.display_balance()
+    def withdraw(self, amount):
+        if amount > self.balance:
+            print("Insufficient funds.")
+        else:
+            self.balance -= amount
+            print(f"Withdrew: ${amount:.1f}")
 
-# Deposit some money
-my_account.deposit(500)
-
-# Try withdrawing more than balance
-my_account.withdraw(2000)
-
-# Withdraw a valid amount
-my_account.withdraw(700)
-
-# Display balance again
-my_account.display_balance()
+    def display_balance(self):
+        print(f"Current Balance: ${self.balance:.2f}")
