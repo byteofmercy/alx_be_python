@@ -1,16 +1,30 @@
-import sys
-from robust_division_calculator import safe_divide
+from simple_calculator import add, subtract, multiply, divide
 
 def main():
-    if len(sys.argv) != 3:
-        print("Usage: python main.py <numerator> <denominator>")
-        sys.exit(1)
+    print("Simple CLI Calculator")
+    try:
+        num1 = float(input("Enter first number: "))
+        operator = input("Enter operation (+, -, *, /): ").strip()
+        num2 = float(input("Enter second number: "))
 
-    numerator = sys.argv[1]
-    denominator = sys.argv[2]
+        if operator == '+':
+            result = add(num1, num2)
+        elif operator == '-':
+            result = subtract(num1, num2)
+        elif operator == '*':
+            result = multiply(num1, num2)
+        elif operator == '/':
+            result = divide(num1, num2)
+        else:
+            print("Invalid operator.")
+            return
 
-    result = safe_divide(numerator, denominator)
-    print(result)
+        print(f"Result: {result}")
+
+    except ValueError:
+        print("Invalid input. Please enter numeric values.")
+    except ZeroDivisionError as e:
+        print(f"Error: {e}")
 
 if __name__ == "__main__":
     main()
