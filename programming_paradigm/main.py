@@ -1,30 +1,36 @@
-from simple_calculator import add, subtract, multiply, divide
+
+#!/usr/bin/python3
+from library_management import Book, Library
 
 def main():
-    print("Simple CLI Calculator")
-    try:
-        num1 = float(input("Enter first number: "))
-        operator = input("Enter operation (+, -, *, /): ").strip()
-        num2 = float(input("Enter second number: "))
+    library = Library()
 
-        if operator == '+':
-            result = add(num1, num2)
-        elif operator == '-':
-            result = subtract(num1, num2)
-        elif operator == '*':
-            result = multiply(num1, num2)
-        elif operator == '/':
-            result = divide(num1, num2)
-        else:
-            print("Invalid operator.")
-            return
+    # Add books
+    book1 = Book("1984", "George Orwell")
+    book2 = Book("To Kill a Mockingbird", "Harper Lee")
+    book3 = Book("Pride and Prejudice", "Jane Austen")
 
-        print(f"Result: {result}")
+    library.add_book(book1)
+    library.add_book(book2)
+    library.add_book(book3)
 
-    except ValueError:
-        print("Invalid input. Please enter numeric values.")
-    except ZeroDivisionError as e:
-        print(f"Error: {e}")
+    print("Available books:")
+    for book in library.list_available_books():
+        print(book)
+
+    print("\nChecking out '1984'...")
+    library.check_out_book("1984")
+
+    print("\nAvailable books after checkout:")
+    for book in library.list_available_books():
+        print(book)
+
+    print("\nReturning '1984'...")
+    library.return_book("1984")
+
+    print("\nAvailable books after return:")
+    for book in library.list_available_books():
+        print(book)
 
 if __name__ == "__main__":
     main()
