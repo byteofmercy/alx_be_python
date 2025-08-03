@@ -1,3 +1,5 @@
+
+
 #!/usr/bin/python3
 
 class Book:
@@ -18,11 +20,8 @@ class Book:
             return True
         return False
 
-    def is_available(self):
-        return not self._is_checked_out
-
-    def __str__(self):
-        return f"'{self.title}' by {self.author}"
+    def is_checked_out(self):
+        return self._is_checked_out
 
 
 class Library:
@@ -33,19 +32,16 @@ class Library:
         self.books.append(book)
 
     def list_available_books(self):
-        return [book for book in self.books if book.is_available()]
+        return [book for book in self.books if not book.is_checked_out()]
 
     def check_out_book(self, title):
         for book in self.books:
-            if book.title == title and book.is_available():
-                book.check_out()
-                return True
+            if book.title == title and not book.is_checked_out():
+                return book.check_out()
         return False
 
     def return_book(self, title):
         for book in self.books:
-            if book.title == title and not book.is_available():
-                book.return_book()
-                return True
+            if book.title == title and book.is_checked_out():
+                return book.return_book()
         return False
-
