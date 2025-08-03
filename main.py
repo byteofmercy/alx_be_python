@@ -5,7 +5,7 @@ def main():
     account = BankAccount(100)  # Starts with $100
 
     if len(sys.argv) < 2:
-        print("Usage: python main-0.py <command>:<amount>")
+        print("Usage: python main.py <command>:<amount>")
         print("Commands: deposit, withdraw, display")
         sys.exit(1)
 
@@ -28,4 +28,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
